@@ -2,6 +2,13 @@ resource "aws_iam_user" "andrew" {
   name = "andrew"
 }
 
+resource "aws_iam_user" "important_user" {
+  name =  "important_user"
+  tags = {
+    Dept = "IT"
+  }
+}
+
 resource "aws_iam_group" "devops" {
   name = "devops"
 }
