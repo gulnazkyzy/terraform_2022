@@ -1,6 +1,16 @@
+locals {
+  common_tags = {
+    Name = "HelloWorld"
+    Env = "Dev"
+    Team = "DevOps"
+  }
+}
+
+
 resource "aws_key_pair" "bastion-host" {
   key_name = "bastion-host-key"
   public_key = file("~/.ssh/id_rsa.pub")
+  tags       = local.common_tags
 }
 
 resource "aws_security_group" "allow_tls" {
@@ -35,7 +45,5 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [
     aws_security_group.allow_tls.id
   ]
-  tags = {
-    Name = "Test"
-  }
+  tags       = local.common_tags
 }
